@@ -2,7 +2,7 @@ var serialport = require('serialport')
   , SerialPort = serialport.SerialPort
   , child = require('child_process')
   , express = require('express')
-  , app = express.createServer()
+  , app = express.createServer().listen(8080)
   , io = require('socket.io').listen(app)
 ;
 
@@ -43,7 +43,7 @@ io.sockets.on('connection', function(socket) {
   });
 });
 
-child.exec('ls /dev/tty.usbmodem*', function(err, stdout, strerr) {
+child.exec('ls /dev/ttyUSB*', function(err, stdout, strerr) {
   if (err) {
     console.log(err.stack);
     process.exit(1);
